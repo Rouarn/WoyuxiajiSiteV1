@@ -44,17 +44,28 @@
   font-size: small;
 }
 
-.tagBox span {
+.tagBox span,
+.tagBox .closeSakura {
   margin: 0 3px;
   padding: 8px 15px;
   border-radius: 5px;
   background-color: #f2f2f2;
-  color: #bebebe;
+  /* 原 #bebebe 对 #f2f2f2 只有 1.66:1，远低于 4.5:1 */
+  color: #6f6f6f;
   box-shadow: rgba(0, 0, 0, 0.1) 0 5px 20px;
   cursor: pointer;
 }
 
-.tagBox span:hover {
+/* 关闭樱花已由 span 改为 button，清除默认外观以保持原有标签样式 */
+.tagBox .closeSakura {
+  border: 0;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: inherit;
+}
+
+.tagBox span:hover,
+.tagBox .closeSakura:hover {
   color: rgba(0, 0, 0, 1);
   opacity: 0.8;
   background-color: rgba(0, 0, 0, 0.1);
