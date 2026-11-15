@@ -1,60 +1,52 @@
-(function () {
-  var d = document;
+/**
+ * 入口初始化：只做装配，不承载业务逻辑。
+ *
+ * 旧版这里还会初始化 WOW.js 和 themeToggle 插件，两者实际都不起作用
+ * （页面没有 .wow 元素；插件用的 .dark-animation/.light-animation 也没有任何样式）。
+ * 主题切换现在由 js/style.js 的 setTheme 统一负责。
+ */
+(function (window, document) {
+  'use strict';
 
-  function showAlert(message) {
-    var el = d.querySelector(".Alert");
-    if (!el) return;
-    el.innerHTML = message;
-    el.style.display = "flex";
-    setTimeout(function () {
-      el.style.display = "none";
+  var alertEl = document.querySelector('.Alert');
+  var alertTimer = null;
+
+  /**
+   * 全站唯一的轻提示。重复调用会重置计时，避免多个 timer 互相抢 display。
+   * @param {string} message 纯文本，统一走 textContent，避免拼接 HTML
+   */
+  function toast(message) {
+    if (!alertEl) return;
+    alertEl.textContent = message;
+    alertEl.style.display = 'flex';
+    if (alertTimer) window.clearTimeout(alertTimer);
+    alertTimer = window.setTimeout(function () {
+      alertEl.style.display = 'none';
+      alertTimer = null;
     }, 3000);
-    el.onclick = function () {
-      el.style.display = "none";
-    };
   }
 
-  window.addEventListener("error", function (e) {
-    showAlert("脚本错误已捕获");
-    console.error(e.error || e.message || e);
-  });
-  window.addEventListener("unhandledrejection", function (e) {
-    showAlert("异步错误已捕获");
-    console.error(e.reason || e);
-  });
-
-  var $body = window.jQuery ? window.jQuery("body") : null;
-  var cache = {
-    body: $body,
-    navbar: d.getElementById("navbar"),
-    navLinkBox: d.getElementById("navLinkBox"),
-  };
-  window.AppCache = cache;
-
-  if (window.jQuery && window.jQuery.fn && window.jQuery.fn.themeToggle) {
-    window.jQuery("body").themeToggle({
-      container: "#navbar",
-      lightSelector: ".darkButton",
-      darkSelector: ".lightButton",
-      duration: 500,
+  if (alertEl) {
+    alertEl.addEventListener('click', function () {
+      alertEl.style.display = 'none';
+      if (alertTimer) {
+        window.clearTimeout(alertTimer);
+        alertTimer = null;
+      }
+    });
+    // 提示层上禁用右键菜单，避免和页面的自定义右键菜单叠加
+    alertEl.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
     });
   }
 
-  if (window.ContextMenu) { try { new window.ContextMenu(); } catch (e) {} }
-  if (window.ClipboardGuard) { try { new window.ClipboardGuard(); } catch (e) {} }
+  window.AppToast = toast;
 
-  var initWOW = function () {
-    if (window.WOW) {
-      try {
-        new window.WOW().init();
-      } catch (err) {
-        console.warn(err);
-      }
+  if (window.ClipboardGuard) {
+    try {
+      new window.ClipboardGuard();
+    } catch (err) {
+      window.console && console.warn('ClipboardGuard 初始化失败', err);
     }
-  };
-  if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(initWOW);
-  } else {
-    setTimeout(initWOW, 0);
   }
-})();
+})(window, document);

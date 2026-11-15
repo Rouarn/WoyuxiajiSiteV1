@@ -1,26 +1,47 @@
-var $shouye = $('.shouye');
-var $navbar = $('#navbar');
-var $navLinkBox = $('#navLinkBox');
+/**
+ * 导航栏滚动吸顶样式切换。
+ *
+ * 首屏高度只在 resize 时重新测量：旧实现每一帧都调 $shouye.height()，
+ * 等于每帧强制一次同步布局，滚动越久越容易掉帧。
+ */
+(function ($, window, document) {
+  'use strict';
 
-var ticking = false;
-$(window).on('scroll', function () {
-  if (!ticking) {
-    window.requestAnimationFrame(function () {
-      var scrollTop = $(document).scrollTop();
-      if (scrollTop > $shouye.height() - 90) {
-        $navbar.addClass('hidden animate__fadeIn');
-        $navLinkBox.addClass('hidden');
-      } else {
-        $navbar.removeClass('hidden animate__fadeIn');
-        $navLinkBox.removeClass('hidden');
-      }
-      ticking = false;
-    });
-    ticking = true;
+  var $navbar = $('#navbar');
+  var $navLinkBox = $('#navLinkBox');
+  var $shouye = $('#shouye');
+  var heroHeight = 0;
+  var ticking = false;
+
+  function measure() {
+    heroHeight = $shouye.length ? $shouye.height() : 0;
   }
-});
 
-// // 点击主题切换按钮时,切换主题并显示主题切换动画
-// // 获取深色主题切换按钮
-var $lightButton = $('.lightButton');
-var $darkButton = $('.darkButton');
+  function update() {
+    if ($(document).scrollTop() > heroHeight - 90) {
+      $navbar.addClass('hidden animate__fadeIn');
+      $navLinkBox.addClass('hidden');
+    } else {
+      $navbar.removeClass('hidden animate__fadeIn');
+      $navLinkBox.removeClass('hidden');
+    }
+    ticking = false;
+  }
+
+  measure();
+
+  $(window).on('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  });
+
+  var resizeTimer = null;
+  $(window).on('resize', function () {
+    if (resizeTimer) window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(function () {
+      measure();
+      update();
+    }, 150);
+  });
+})(window.jQuery, window, document);

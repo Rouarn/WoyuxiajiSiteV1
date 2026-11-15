@@ -1,68 +1,55 @@
-var docTitleHide = '   QAQ 酱酱好伤心、好想哭、呜呜呜...';
-var docTitleShow = '   O(∩_∩)O 你回来了 酱酱好开心、么么哒...';
-var TitleHideTimer = null;
+/**
+ * 标签切换时的标题滚动小彩蛋。
+ *
+ * 旧实现把「隐藏」和「显示」拆成两个 visibilitychange 监听，各自起定时器且只清理
+ * 自己那一个，快速来回切标签时会残留多个 interval 同时改 document.title。
+ * 这里统一成一个监听 + 两个可控定时器，切换前先全部清掉。
+ */
+(function (window, document) {
+  'use strict';
 
-$(document).on('visibilitychange', function () {
-  if (document.hidden) {
-    function scrollTitle() {
-      docTitleHide = docTitleHide.substring(1, docTitleHide.length) + docTitleHide.substring(0, 1);
-      document.title = docTitleHide;
+  var ORIGINAL_TITLE = document.title;
+  var text = {
+    hidden: '   QAQ 酱酱好伤心、好想哭、呜呜呜...',
+    visible: '   O(∩_∩)O 你回来了 酱酱好开心、么么哒...'
+  };
+  var scrollTimer = null;
+  var restoreTimer = null;
+
+  function clearTimers() {
+    if (scrollTimer) {
+      window.clearInterval(scrollTimer);
+      scrollTimer = null;
     }
-    TitleHideTimer = setInterval(scrollTitle, 500);
+    if (restoreTimer) {
+      window.clearTimeout(restoreTimer);
+      restoreTimer = null;
+    }
   }
-});
 
-$(document).on('visibilitychange', function () {
-  if (!document.hidden) {
-    clearInterval(TitleHideTimer);
-    function scrollTitle() {
-      docTitleShow = docTitleShow.substring(1, docTitleShow.length) + docTitleShow.substring(0, 1);
-      document.title = docTitleShow;
+  /** 逐帧左移一个字，key 指向 text 里被就地修改的那条文案 */
+  function startScroll(key) {
+    scrollTimer = window.setInterval(function () {
+      text[key] = text[key].substring(1) + text[key].substring(0, 1);
+      document.title = text[key];
+    }, 500);
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    clearTimers();
+
+    if (document.hidden) {
+      startScroll('hidden');
+      return;
     }
-    var TitleShowTimer = setInterval(scrollTitle, 500);
-    setTimeout(function () {
-      clearInterval(TitleShowTimer);
-      document.title = '我与夏季';
+
+    startScroll('visible');
+    restoreTimer = window.setTimeout(function () {
+      if (scrollTimer) {
+        window.clearInterval(scrollTimer);
+        scrollTimer = null;
+      }
+      document.title = ORIGINAL_TITLE;
     }, 5000);
-  }
-});
-
-$(document).on('copy', function (e) {
-  var $alert = $('.Alert');
-  $alert.html('你在复制什么呢？').css('display', 'flex');
-  setTimeout(function () { $alert.css('display', 'none'); }, 3000);
-  $alert.on('click', function () { $alert.css('display', 'none'); });
-  var url = window.location.href;
-  var title = document.title;
-  var content = '(●ˇ∀ˇ●) 不让复制';
-  var str = `网址：${url}  标题：${title}  内容：${content}`;
-  if (e.originalEvent && e.originalEvent.clipboardData) {
-    e.originalEvent.clipboardData.setData('text/plain', str);
-  }
-  e.preventDefault();
-});
-
-$(document).on('paste', function (e) {
-  var $alert = $('.Alert');
-  $alert.html('你在粘贴什么呢？').css('display', 'flex');
-  setTimeout(function () { $alert.css('display', 'none'); }, 3000);
-  $alert.on('click', function () { $alert.css('display', 'none'); });
-  e.preventDefault();
-});
-
-$(document).on('cut', function (e) {
-  var $alert = $('.Alert');
-  $alert.html('你在剪切什么呢？').css('display', 'flex');
-  setTimeout(function () { $alert.css('display', 'none'); }, 3000);
-  $alert.on('click', function () { $alert.css('display', 'none'); });
-  e.preventDefault();
-});
-
-$(document).on('drag', function () {
-  var $alert = $('.Alert');
-  $alert.html('小主, 不要拽了,很痛的o(╥﹏╥)o').css('display', 'flex');
-});
-$(document).on('dragend', function () { $('.Alert').css('display', 'none'); });
-
-$('.Alert').on('contextmenu', function (e) { e.preventDefault(); });
-
+  });
+})(window, document);
