@@ -43,7 +43,7 @@
           justify-content: center;
 }
 .works .workList .workLink {
-  width: 300px;
+  width: min(300px, calc(100% - 30px));
   height: 250px;
   margin: 0 15px 30px 15px;
   background-color: #fff;
@@ -74,32 +74,32 @@
 }
 .works .workList .workLink .workLinkPic {
   height: 155px;
-  background: url("../img/workLinkPic.jpg") no-repeat;
+  background: url("../img/workLinkPic.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic1 {
-  background: url("../img/workLinkPic1.jpg") no-repeat;
+  background: url("../img/workLinkPic1.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic2 {
-  background: url("../img/workLinkPic2.jpg") no-repeat;
+  background: url("../img/workLinkPic2.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic3 {
-  background: url("../img/workLinkPic3.jpg") no-repeat;
+  background: url("../img/workLinkPic3.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic4 {
   -o-background-size: auto 50% !important;
      background-size: auto 50% !important;
-  background: url("../img/workLinkPic4.png") no-repeat;
+  background: url("../img/workLinkPic4.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic5 {
   -o-background-size: auto 50% !important;
      background-size: auto 50% !important;
-  background: url("../img/workLinkPic4.png") no-repeat;
+  background: url("../img/workLinkPic4.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic6 {
-  background: url("../img/workLinkPic6.png") no-repeat;
+  background: url("../img/workLinkPic6.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic7 {
-  background: url("../img/workLinkPic7.jpg") no-repeat;
+  background: url("../img/workLinkPic7.webp") no-repeat;
 }
 .works .workList .workLink #workLinkPic8 {
   -o-background-size: auto 50% !important;
@@ -111,7 +111,6 @@
      background-size: auto 50% !important;
   background: url("../img/workLinkPic9.svg") no-repeat;
 }
-.works .workList .workLink #workLinkPic1,
 .works .workList .workLink #workLinkPic1,
 .works .workList .workLink #workLinkPic2,
 .works .workList .workLink #workLinkPic3,

@@ -9,68 +9,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>我与夏季</title>
     <link rel="icon" href="./img/Logo_Main_2108.ico" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/aboutMe.css" />
-    <link rel="stylesheet" href="css/works.css" />
-    <link rel="stylesheet" href="css/log.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/navbar.css" />
-    <link rel="stylesheet" href="css/animate.min.css" />
-    <link rel="stylesheet" href="css/RCMenu.css" />
-    <link rel="stylesheet" href="css/iconfont.css" />
-    <link rel="stylesheet" href="css/FOOText.css" />
-    <link rel="stylesheet" href="css/sakuraDrops.css" />
+    <!-- 静态托管没有文件名指纹，改动后用 v 参数强制刷新缓存 -->
+    <link rel="stylesheet" href="css/main.css?v=20261115" />
+    <link rel="stylesheet" href="css/aboutMe.css?v=20261115" />
+    <link rel="stylesheet" href="css/works.css?v=20261115" />
+    <link rel="stylesheet" href="css/log.css?v=20261115" />
+    <link rel="stylesheet" href="css/footer.css?v=20261115" />
+    <link rel="stylesheet" href="css/navbar.css?v=20261115" />
+    <link rel="stylesheet" href="css/RCMenu.css?v=20261115" />
+    <link rel="stylesheet" href="css/iconfont.css?v=20261115" />
+    <link rel="stylesheet" href="css/FOOText.css?v=20261115" />
+    <link rel="stylesheet" href="css/sakuraDrops.css?v=20261115" />
+    <link rel="preconnect" href="https://code.jquery.com" />
+    <link rel="preconnect" href="https://www.bing.com" />
   </head>
   <body>
     <!-- 总体 -->
-    <div class="woyuxaiji light" id="woyuxaiji">
+    <div class="woyuxaiji theme-light" id="woyuxaiji">
       <!-- 开屏首页导航栏 -->
       <nav id="navbar" class="navbar animate__animated">
         <div class="center">
           <div class="navLogoBox">
-            <a href="index.html">
+            <a href="index.html" aria-label="返回首页">
               <div class="navLogoMain" id="navLogoMain"></div>
               <div class="navLogoText" id="navLogoText"></div>
             </a>
           </div>
           <div class="navLinkBox" id="navLinkBox">
-            <a class="navLink" id="navLink1" href="#">首页</a>
+            <a class="navLink" id="navLink1" href="#shouye">首页</a>
             <a class="navLink" id="navLink2" href="#about">关于</a>
             <a class="navLink" id="navLink3" href="#works">作品</a>
             <a class="navLink" id="navLink4" href="#log">日志</a>
-            <a class="navLink" id="navLink5" href="javascript:;">
+            <button type="button" class="navLink" id="navLink5" aria-label="切换深浅色主题" aria-pressed="false">
               <div class="lightColor" id="lightColor">
                 <div id="lightButton" class="lightButton"></div>
               </div>
               <div class="darkColor" id="darkColor">
                 <div id="DarkButton" class="darkButton"></div>
               </div>
-            </a>
+            </button>
           </div>
           <!-- 此为引出屏幕宽度小于750px时所应用元素的按钮 -->
-          <span class="navLinkMarkBtn1" id="MarkBtnShow"></span>
+          <button type="button" class="navLinkMarkBtn1" id="MarkBtnShow" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinkMarkBox"></button>
         </div>
         <!-- 此间为屏幕宽度小于750px是所应用的元素 -->
         <div class="navLinkMarkBox" id="navLinkMarkBox">
           <div class="navLinkMark" id="LinkMark"></div>
           <!-- 此为关闭屏幕宽度小于750px时所应用元素的按钮 -->
-          <span class="navLinkMarkBtn2" id="MarkBtnConceal"></span>
+          <button type="button" class="navLinkMarkBtn2" id="MarkBtnConceal" aria-label="关闭菜单"></button>
           <!-- 此为sideListbox（侧边菜单）的遮罩层，用来控制点击空白处时（侧边菜单）背景的消失 -->
           <div class="sideListboxMark" id="sideListboxMark"></div>
           <div class="sideListbox" id="sideListbox">
-            <a class="sideList" id="sideList1" href="#">首页</a>
+            <a class="sideList" id="sideList1" href="#shouye">首页</a>
             <a class="sideList" id="sideList2" href="#about">关于</a>
             <a class="sideList" id="sideList3" href="#works">作品</a>
             <a class="sideList" id="sideList4" href="#log">日志</a>
             <hr class="dividingLine" />
-            <a class="sideList sideList5" id="sideList5" href="javascript:;"
-              >夏季
+            <button type="button" class="sideList sideList5" id="sideList5">
+              夏季
               <span class="CurrentColorSystem" id="CurrentColorSystem">浅色</span>
-            </a>
-            <a class="sideList sideList6" id="sideList6" href="javascript:;"
-              >夏季
+            </button>
+            <button type="button" class="sideList sideList6" id="sideList6">
+              夏季
               <span class="CurrentColorSystem" id="darkColorSystem">深色</span>
-            </a>
+            </button>
           </div>
         </div>
         <!-- 此上间为屏幕宽度小于750px是所应用的元素 -->
@@ -97,11 +99,11 @@
         </div>
 
         <div class="scrollDown">
-          <a class="scrollDownIcon" href="#about"></a>
+          <a class="scrollDownIcon" href="#about" aria-label="向下滚动到关于我"></a>
         </div>
       </div>
       <!-- 樱花飘落 -->
-      <canvas style="display: block"></canvas>
+      <canvas aria-hidden="true" style="display: block"></canvas>
       <!-- 关于我 -->
       <div class="about" id="about">
         <h3 class="aboutH3">关于我</h3>
@@ -114,7 +116,7 @@
           <span>NJU</span>
           <span>小黑子</span>
           <!-- 樱花飘落 -->
-          <span class="closeSakura" id="closeSakura">关闭樱花飘落</span>
+          <button type="button" class="closeSakura" id="closeSakura" aria-pressed="true">关闭樱花飘落</button>
         </div>
         <div class="aboutContent">
           <p>嗨,我是刘亮。</p>
@@ -222,7 +224,7 @@
         </div>
         <p class="tip">左右滑动来查看</p>
         <div class="logBoxOuter">
-          <div class="logBox" id="logBox">
+          <div class="logBox" id="logBox" tabindex="0" role="region" aria-label="小站大记事时间线，可用左右方向键横向查看">
             <div class="logTextbox">
               <p class="logText1">2022.10.05</p>
               <p class="logText2">注册域名「 woyuxaiji.top 」</p>
@@ -303,7 +305,7 @@
         <div class="copyright" id="copyright">
           <p>© 2022 刘亮</p>
           <div class="legalText">
-            <a id="linkCopyright">版权声明</a>
+            <span class="legalNotice">版权声明</span>
             <br />
             <a href="https://beian.miit.gov.cn/" target="_blank"> 豫ICP备2024084155号-3 </a>
             <br />
@@ -332,25 +334,25 @@
           <!-- Light Menu   ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ -->
           <div class="light-title"></div>
           <ul class="light-menu-list">
-            <li>
-              <i class="iconfont icon-fuzhi"></i>
+            <li data-action="copy">
+              <i class="iconfont icon-fuzhi" aria-hidden="true"></i>
               <span id="lightMenuList1">小黑子</span>
             </li>
-            <li>
-              <i class="iconfont icon-niantie"></i>
+            <li data-action="paste">
+              <i class="iconfont icon-niantie" aria-hidden="true"></i>
               <span id="lightMenuList2">唱,跳</span>
             </li>
-            <li>
-              <i class="iconfont icon-jianqie"></i>
+            <li data-action="cut">
+              <i class="iconfont icon-jianqie" aria-hidden="true"></i>
               <span id="lightMenuList3">rap</span>
             </li>
-            <li>
-              <i class="iconfont icon-xiazaidaoru"></i>
+            <li data-action="download">
+              <i class="iconfont icon-xiazaidaoru" aria-hidden="true"></i>
               <span id="lightMenuList4">篮球</span>
             </li>
             <li class="divider"></li>
-            <li>
-              <i class="iconfont icon-shanchu"></i>
+            <li data-action="delete">
+              <i class="iconfont icon-shanchu" aria-hidden="true"></i>
               <span id="lightMenuList5">你会吗</span>
             </li>
           </ul>
@@ -361,25 +363,25 @@
           <!-- Dark Menu   ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ -->
           <div class="dark-title"></div>
           <ul class="dark-menu-list">
-            <li>
-              <i class="iconfont icon-fuzhi"></i>
+            <li data-action="copy">
+              <i class="iconfont icon-fuzhi" aria-hidden="true"></i>
               <span>Copy</span>
             </li>
-            <li>
-              <i class="iconfont icon-niantie"></i>
+            <li data-action="paste">
+              <i class="iconfont icon-niantie" aria-hidden="true"></i>
               <span>Paste</span>
             </li>
-            <li>
-              <i class="iconfont icon-jianqie"></i>
+            <li data-action="cut">
+              <i class="iconfont icon-jianqie" aria-hidden="true"></i>
               <span>Cut</span>
             </li>
-            <li>
-              <i class="iconfont icon-xiazaidaoru"></i>
+            <li data-action="download">
+              <i class="iconfont icon-xiazaidaoru" aria-hidden="true"></i>
               <span>Download</span>
             </li>
             <li class="divider"></li>
-            <li>
-              <i class="iconfont icon-shanchu"></i>
+            <li data-action="delete">
+              <i class="iconfont icon-shanchu" aria-hidden="true"></i>
               <span>Delete</span>
             </li>
           </ul>
@@ -396,31 +398,27 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      if (!window.jQuery) {
-        var s = document.createElement('script');
-        s.src = './js/jquery.min.js';
-        document.head.appendChild(s);
-      }
+      // 必须用 document.write 同步插入：动态 appendChild 出来的脚本默认 async，
+      // 会晚于下面所有 defer 脚本执行，导致 $ is not defined、整页交互失效
+      window.jQuery || document.write('<script src="./js/jquery.min.js?v=20261115"><\/script>');
     </script>
     <!-- jQuery 插件 -->
-    <script src="./js/plugins/themeToggle.js" defer></script>
-    <script src="./js/plugins/contextMenu.js" defer></script>
-    <script src="./js/plugins/clipboardGuard.js" defer></script>
-    <!-- 首页 -->
-    <script src="./js/style.js" defer></script>
-    <!-- 关于 -->
-    <script src="./js/aboutMe.js" defer></script>
-    <!-- 导航栏 -->
-    <script src="./js/navbar.js" defer></script>
-    <!-- 底部 -->
-    <script src="./js/footer.js" defer></script>
+    <script src="./js/plugins/clipboardGuard.js?v=20261115" defer></script>
+    <!-- 首页导航与主题 -->
+    <script src="./js/style.js?v=20261115" defer></script>
+    <!-- 标签页标题彩蛋 -->
+    <script src="./js/aboutMe.js?v=20261115" defer></script>
+    <!-- 导航栏吸顶 -->
+    <script src="./js/navbar.js?v=20261115" defer></script>
+    <!-- 右键菜单项行为 -->
+    <script src="./js/footer.js?v=20261115" defer></script>
     <!-- 双色右键菜单 -->
-    <script src="js/rcMenu.js" defer></script>
+    <script src="./js/rcMenu.js?v=20261115" defer></script>
     <!-- 樱花飘落 -->
-    <script src="./js/sakuraDrops.js" defer></script>
-    <!-- WOW.js -->
-    <script src="./js/wow.min.js" defer></script>
+    <script src="./js/sakuraDrops.js?v=20261115" defer></script>
+    <!-- 首屏背景（必应锁屏图池随机） -->
+    <script src="./js/heroBg.js?v=20261115" defer></script>
     <!-- 入口初始化 -->
-    <script src="./js/init/bootstrap.js" defer></script>
+    <script src="./js/init/bootstrap.js?v=20261115" defer></script>
   </body>
 </html>
